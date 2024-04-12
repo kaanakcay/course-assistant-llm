@@ -1,10 +1,17 @@
-import Image from "next/image";
-import { Chat, chat } from "@/components/client/chat";
+'use client'
+import { Chat } from "@/components/chat";
+import CombinedChat from "@/components/combinedChat";
+import { Leftbar } from "@/components/leftbar";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
-    <div>
-      <Chat/>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div className="flex">
+        <Leftbar />
+        <Chat />
+      </div>
     </div>
   );
 }
