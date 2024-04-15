@@ -8,6 +8,7 @@ import { UserButton, auth } from "@clerk/nextjs";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
+import FileUpload from "@/components/FileUpload";
 
 export default async function Home() {
   const {userId} = await auth();
@@ -39,7 +40,7 @@ export default async function Home() {
                         </Button>
                      </Link>
                      ) 
-                     : (<p>LOGİN OLDUNDU KARDEŞİM</p>)}
+                     : (<FileUpload />)}
                 </div>
             
             </div>
