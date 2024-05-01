@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function Navbar() {
+export function Navbar({ toggleFileUpload }) { // Accept toggleFileUpload as a prop
   return (
-    <header className="flex h-24 w-full items-center px-4 md:px-6 border bg-gray-100"> {/* Added bottom border with gray-200 color */}
+    <header className="flex h-24 w-full items-center px-4 md:px-6 border bg-gray-100">
       <div className="flex items-center gap-4">
         <div style={{ width: '120px', height: '60px', position: 'relative' }}>
           <Image
-            src="/sabanci.png" // Make sure the path is correct
+            src="/sabanci.png"
             alt="Sabancı University Logo"
             layout="fill"
             objectFit="contain"
@@ -18,7 +18,7 @@ export function Navbar() {
         </Link>
       </div>
       <nav className="ml-auto flex items-center gap-4">
-        <Link href="#" className="font-semibold underline">
+        <Link href="#" className="font-semibold underline" onClick={toggleFileUpload}>
           Upload Course Documents
         </Link>
         <Link href="#" className="font-semibold underline">

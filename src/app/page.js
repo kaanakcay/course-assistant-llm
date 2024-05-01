@@ -22,18 +22,13 @@ export default async function Home() {
                     <UserButton afterSignOutUrl="/" />
                 </div>    
 
-                <div className="flex mt-2">
-                    {!isAuth && (
-                        <Button>Chat with AssistantSU</Button>
-                    )}
-
-                </div>
+                
                 {!isAuth && ( <p className="max-w-xl mt-1 text-lg text-slate-600">
                     Join millions of students, researchers and professionals to instantly
                     answer questions and understand research with AI
                 </p>)}   
 
-                <div className="w-full mt-4">
+                <div className="w-full mt-4 ">
                     {!isAuth ?
                      (<Link href="/sign-in">
                         <Button>Log in to get started

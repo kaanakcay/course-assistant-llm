@@ -7,11 +7,16 @@ import axios from 'axios';
 
 const FileUpload = () => {
     const [uploading, setUploading] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
     const handleUpload = async (file) => {
         const formData = new FormData();
-        formData.append('file', file);
+        if(file.type.startsWith("audio/")) {
+          formData.append('files', file); // Match the backend parameter
+        }else{
+          formData.append('file', file); // Match the backend parameter
+
+        }
+        
 
         try {
             let response;
@@ -50,8 +55,8 @@ const FileUpload = () => {
 
             console.log("Upload response:", response.data);
         } catch (error) {
-            console.error("Error uploading file:", error);
-            toast.error("An error occurred while uploading the file.");
+            console.error("Error uploading file:", error.response || error);
+            toast.error(`An error occurred: ${error.response?.data?.detail || error.message}`);
         }
     };
 
@@ -64,7 +69,7 @@ const FileUpload = () => {
             "audio/mpeg": [".mp3"],
             "audio/wav": [".wav"],
             "audio/ogg": [".ogg"],
-            "audio/m4a": [".m4a"],
+            "audio/m4a": [".m4a"], // Include .m4a files
         },
         maxFiles: 1,
         onDrop: async (acceptedFiles) => {
@@ -81,23 +86,23 @@ const FileUpload = () => {
     });
 
     return (
-        <div className='p-2 bg-white rounded-xl'>
+        <div class="p-2 bg-white rounded-xl">
             <div
                 {...getRootProps({
                     className: "border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col",
                 })}
             >
                 <input {...getInputProps()} />
-                {uploading || isLoading ? (
+                {uploading ? (
                     <>
                         {/* Loading state */}
                         <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-                        <p className="mt-2 text-sm text-slate-400">Uploading...</p>
+                        <p class="mt-2 text-sm text-slate-400">Uploading...</p>
                     </>
                 ) : (
                     <>
                         <Inbox className="w-10 h-10 text-blue-500" />
-                        <p className="mt-2 text-sm text-slate-400">Drop Document Here</p>
+                        <p class="mt-2 text-sm text-slate-400">Drop Document Here</p>
                     </>
                 )}
             </div>
