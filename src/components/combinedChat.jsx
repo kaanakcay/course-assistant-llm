@@ -10,7 +10,6 @@ export default function CombinedChat() {
         <div className="flex flex-col h-screen w-screen">
             <div className="flex-shrink-0">
                 <Navbar />
-                <UserButton afterSignOutUrl="/" />
             </div>
             <div className="flex min-h-0">
                 <div className="flex-none w-auto bg-gray-200">

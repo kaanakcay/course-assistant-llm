@@ -1,7 +1,11 @@
+import { UserButton, UserProfile } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
+
+
 export function Navbar() {
+  
   return (
     <header className="flex h-24 w-full items-center px-4 md:px-6 border bg-gray-100"> {/* Added bottom border with gray-200 color */}
       <div className="flex items-center gap-4">
@@ -21,9 +25,7 @@ export function Navbar() {
         <Link href="#" className="font-semibold underline">
           Upload Course Documents
         </Link>
-        <Link href="#" className="font-semibold underline">
-          Logout
-        </Link>
+        <UserButton afterSignOutUrl="/"/>
       </nav>
     </header>
   );

@@ -9,6 +9,8 @@ import {
   } from "drizzle-orm/pg-core";
   
   export const userSystemEnum = pgEnum("user_system_enum", ["system", "user"]);
+
+  export const studentInstructorAdminEnum = pgEnum("student_instructor_admin_enum", ["instructor", "student", "admin"])
   
   //chat history table
   export const chats = pgTable("chats", {
@@ -43,6 +45,14 @@ import {
     }).unique(),
     stripePriceId: varchar("stripe_price_id", { length: 256 }),
     stripeCurrentPeriodEnd: timestamp("stripe_current_period_ended_at"),
+  });
+
+
+  export const users = pgTable("users", {
+    id: serial("id").primaryKey(),
+    email: varchar("email", {length: 256}).unique(),
+    name: varchar("name", {length: 256}).notNull(),
+    role: studentInstructorAdminEnum("role").notNull(),
   });
   
   // drizzle-orm
