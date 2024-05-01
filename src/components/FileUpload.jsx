@@ -9,8 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation'
 import axios from "axios";
 
-
-
+//selam kardeşim
 const FileUpload = () => {
   console.log("begin")
   const router = useRouter();
