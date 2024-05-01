@@ -26,9 +26,89 @@ const FileUpload = () => {
     },
   });
   
+  const handlePDFUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {  // Dosya seçildiyse
+      const formData = new FormData();
+      formData.append('file', file);  // 'pdf' anahtarı ile dosyayı ekleyin
+      try {
+        // API'ye yükleme isteği gönder
+        const response = await axios.post('http://localhost:3000/upload_new_pdf', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        // Yükleme başarılıysa kullanıcıyı bilgilendir
+        addMessage(`PDF uploaded!`, 'user');
+      } catch (error) {
+        console.error('Error while uploading PDF:', error);
+        addMessage('An error occurred while trying to upload the PDF.', 'assistant');
+      }
+    }
+  };
+  
+  const handleFileUpload = async (event) => {
+    const files = event.target.files;
+    if (files.length === 0) return; // No file is selected
+  
+    const formData = new FormData();
+    // Append the selected audio file to the form data
+    formData.append('files', files[0]); // Note: 'files' to match your FastAPI endpoint parameter
+  
+    try {
+        // Send the POST request to the /whisper/ endpoint with the form data
+        const response = await axios.post('http://localhost:3000/whisper/', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+  
+        // Check if the response is successful
+        if (response.data && response.data.results && response.data.results.length > 0) {
+            // Display the transcript as if the assistant is answering
+            const transcript = response.data.results[0].transcript;
+            addMessage(transcript, 'assistant');
+        } else {
+            // If the transcription is not successful, inform the user
+            addMessage('Sorry, I could not transcribe the audio.', 'assistant');
+        }
+    } catch (error) {
+        console.error('Error while uploading and transcribing audio:', error);
+        addMessage('An error occurred while trying to upload and transcribe the audio.', 'assistant');
+    }
+  
+    // Clear the file input after processing
+    event.target.value = '';
+  };
+  
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {  // Dosya seçildiyse
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        // API'ye yükleme isteği gönder
+        const response = await axios.post('http://localhost:3000/upload_image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        // Yükleme başarılıysa ve API'den yanıt alındıysa, kullanıcıyı ve API'den gelen yanıtı bilgilendir
+        addMessage(`Image uploaded!`, 'user');
+        if (response.data && response.data.response) {
+          // API'den gelen yanıtı assistant rolünde ekrana ekleyin
+          console.log("IMAGE DAN GELEN", response.data)
+          addMessage(response.data.response, 'assistant');
+        }
+      } catch (error) {
+        console.error('Error while uploading image:', error);
+        addMessage('An error occurred while trying to upload the image.', 'assistant');
+      }
+    }
+  };
 
   const {getRootProps, getInputProps} = useDropzone({
-    accept: { "application/pdf": [".pdf"] },
+    accept: { "application/pdf": [".pdf"], "video/mp4": [".mp4"], "image/png": [".png"], "image/jpeg": [".jpeg"] },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       console.log(acceptedFiles);
@@ -46,10 +126,10 @@ const FileUpload = () => {
         }
         mutate(data, {
           onSuccess: ({ chat_id }) => {
-            toast.success("PDF Document has been successfully uploaded!");     
+            toast.success("File has been successfully uploaded!");     
           },
           onError: (err) => {
-            toast.error("Error creating chat");
+            toast.error("Error uploading file");
             console.error(err);
           },
         });
