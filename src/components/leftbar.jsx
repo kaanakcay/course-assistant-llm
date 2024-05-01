@@ -10,7 +10,7 @@ export function Leftbar() {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <div key="1" className="flex flex-col items-center w-72 rounded-xl border border-gray-200 shadow-lg dark:border-gray-200 mt-4 ml-5 min-h-[80vh]">
+    <div key="1" className="flex flex-col items-center w-72 rounded-xl border border-gray-200 shadow-lg dark:border-gray-200 mt-4 ml-0 min-h-[80vh]">
       <div className="w-full flex flex-col items-center">
         <div className="w-full p-4 flex justify-center">
           <h2 className="text-lg font-semibold leading-none text-center">Conversation History</h2> {/* Centered text */}
@@ -63,10 +63,10 @@ export function Leftbar() {
         {/* Dropdown Content */}
         {isDropdownOpen && (
           <div className="flex flex-col items-center w-full">
-            <Button className="">Course 1</Button>
-            <Button className="">Course 2</Button>
-            <Button className="w-full justify-start pl-4 text-left">Course 3</Button>
-            <Button className="w-full justify-start pl-4 text-left">Course 4</Button>
+            <Button className="p-2 w-auto">Course 1</Button>
+            <Button className="p-2 w-auto">Course 2</Button>
+            <Button className="p-2 w-auto">Course 3</Button>
+            <Button className="p-2 w-auto">Course 4</Button>
           </div>
         )}
       </div>

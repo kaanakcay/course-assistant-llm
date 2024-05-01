@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Navbar() {
   return (
-    <header className="flex h-24 w-full items-center px-4 md:px-6 border-b border-gray-200"> {/* Added bottom border with gray-200 color */}
+    <header className="flex h-24 w-full items-center px-4 md:px-6 border bg-gray-100"> {/* Added bottom border with gray-200 color */}
       <div className="flex items-center gap-4">
         <div style={{ width: '120px', height: '60px', position: 'relative' }}>
           <Image
