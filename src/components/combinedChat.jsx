@@ -5,7 +5,7 @@ import FileUpload from './FileUpload';
 import { Navbar } from './navbar';
 import { UserButton, auth } from "@clerk/nextjs";
 
-export default function CombinedChat() {
+export default function CombinedChat({role}) {
     return (
         <div className="flex flex-col h-screen w-screen">
             <div className="flex-shrink-0">
@@ -17,8 +17,16 @@ export default function CombinedChat() {
                 </div>
                 <div className="flex flex-col flex-1 min-w-0 p-4">
                     <div className="h-autoflex-shrink-0 p-4 bg-gray-100">
-                        <Chat />
-                        <FileUpload/>
+                        {(role == "instructor") ?
+                        (<div>
+                            <Chat />
+                            <FileUpload/>
+                        </div>
+                        ) 
+                        : (<div>
+                            <Chat />
+                        </div>)}
+                        
                     </div>
                 </div>
             </div>
