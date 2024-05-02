@@ -6,7 +6,7 @@ import { Navbar } from './navbar';
 import { UserButton, auth } from "@clerk/nextjs";
 import React, { useState } from 'react';
 
-export default function CombinedChat() {
+export default function CombinedChat({role}) {
     const [showFileUpload, setShowFileUpload] = useState(false);
     const toggleFileUpload = () => {
         setShowFileUpload(!showFileUpload); // Toggle the state
@@ -23,8 +23,16 @@ export default function CombinedChat() {
                 </div>
                 <div className="flex flex-col flex-1 min-w-0 p-4">
                     <div className="h-autoflex-shrink-0 p-4 bg-gray-100">
-                        <Chat />
-                        {showFileUpload && <FileUpload />}
+                        {(role == "instructor") ?
+                        (<div>
+                            <Chat />
+                            {showFileUpload && <FileUpload />}
+                        </div>
+                        ) 
+                        : (<div>
+                            <Chat />
+                        </div>)}
+                        
                     </div>
                 </div>
             </div>

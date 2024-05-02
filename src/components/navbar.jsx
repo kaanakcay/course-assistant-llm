@@ -28,3 +28,4 @@ export function Navbar({ toggleFileUpload }) { // Accept toggleFileUpload as a p
     </header>
   );
 }
+
